@@ -3,37 +3,20 @@ pipeline
     agent any
     stages
     {
-        stage('ContinuousDownload_Master')
+        stage('ContinuousDownload_Loans')
         {
             steps
             {
                 git 'https://github.com/rahulborole1/mavenan.git'
             }
         }
-        stage('ContinuousBuild_Master')
+        stage('ContinuousBuild_Loans')
         {
             steps
             {
                 sh 'mvn package'
             }
         }
-        
-        stage('ContinuousDeployment_Master')
-        {
-            steps
-            {
-                deploy adapters: [tomcat9(credentialsId: 'a6c49834-9973-4c10-813f-673286d5d0bc', path: '', url: 'http://172.31.22.61:8080')], contextPath: 'qaapp', war: '**/*.war'
-            }
-        }
-        stage('ContinuousTesting_Master')
-        {
-            steps
-            {
-                git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
-                sh 'java -jar /home/ubuntu/.jenkins/workspace/DeclarativePipeline/testing.jar'
-            }
-        }
-      
         stage('ContinuosuDelivery_Master')
         {
             steps
@@ -43,6 +26,5 @@ pipeline
             }
         }
         
-        
-    }
+        }
 }
